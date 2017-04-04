@@ -89,12 +89,14 @@ For dataset I tried to record "important" parts of the track, like turns, hills.
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 47). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
+Also I tried to smooth angle values using running average function. But it caused troubles on second track.
+
 #### 3. Model parameter tuning
 
 The model used an adam optimizer, but for faster convergence initial learning rate was doubled (line 116).
 Loss function was changed to "mean absolute error" because steering values are less than 1.0. So mean squared error caused slower covergence.
 
-Also I've tried different color schemas. The version with only gray channel made it pretty good, it was able to make 90% of track, but on second track (the one that was not in training set) it was not so successful. 
+Also I've tried different color schemas. The version with only gray channel made it pretty good, it was able to make 80% of track, but on second track (the one that was not in training set) it was not so successful. 
 
 So I've ended up with YUV channels. I believe model has learned that car must stay on area with low saturation (gray road) and near bright lines
 
@@ -155,11 +157,9 @@ see https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/
 
 #### 3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
+To capture good driving behavior, I recorded two laps on track using center lane driving. I used left and right camera images as "recovery driving" dataset, also flipped images all these and angles thinking that this would give more data points. 
 
-I used left and right camera images as "recovery driving" dataset, also flipped images all these and angles thinking that this would give more data points. 
-
-After the collection process, I had ~47292 number of data points. I then preprocessed this data by crop and color-space convertion
+After the collection process, I had ~47292 number of data points. I then preprocessed this data by crop and color-space conversion.
 
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
