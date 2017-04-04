@@ -52,36 +52,21 @@ The model.py file contains the code for training and saving the convolution neur
 
 I've used nvidia model as relatively simple an efficient for this task
 
-_________________________________________________________________
-Layer (type)                 Output Shape              Param #   
-=================================================================
-lambda_1 (Lambda)            (None, 90, 320, 3)        0         
-_________________________________________________________________
-batch_normalization_1 (Batch (None, 90, 320, 3)        12        
-_________________________________________________________________
-conv2d_1 (Conv2D)            (None, 43, 158, 24)       1824      
-_________________________________________________________________
-conv2d_2 (Conv2D)            (None, 20, 77, 36)        21636     
-_________________________________________________________________
-conv2d_3 (Conv2D)            (None, 8, 37, 48)         43248     
-_________________________________________________________________
-conv2d_4 (Conv2D)            (None, 6, 35, 64)         27712     
-_________________________________________________________________
-conv2d_5 (Conv2D)            (None, 4, 33, 64)         36928     
-_________________________________________________________________
-flatten_1 (Flatten)          (None, 8448)              0         
-_________________________________________________________________
-dense_1 (Dense)              (None, 1164)              9834636   
-_________________________________________________________________
-dense_2 (Dense)              (None, 100)               116500    
-_________________________________________________________________
-dense_3 (Dense)              (None, 50)                5050      
-_________________________________________________________________
-dense_4 (Dense)              (None, 10)                510       
-_________________________________________________________________
-dense_5 (Dense)              (None, 1)                 11        
-=================================================================
-
+ Layer (type)               |  Output Shape            |  Param #   
+----------------------------|--------------------------|------------
+lambda_1 (Lambda)           | (None, 90, 320, 3)       | 0         
+batch_normalization_1 (Batch| (None, 90, 320, 3)       | 12        
+conv2d_1 (Conv2D)           | (None, 43, 158, 24)      | 1824      
+conv2d_2 (Conv2D)           | (None, 20, 77, 36)       | 21636     
+conv2d_3 (Conv2D)           | (None, 8, 37, 48)        | 43248     
+conv2d_4 (Conv2D)           | (None, 6, 35, 64)        | 27712     
+conv2d_5 (Conv2D)           | (None, 4, 33, 64)        | 36928     
+flatten_1 (Flatten)         | (None, 8448)             | 0         
+dense_1 (Dense)             | (None, 1164)             | 9834636   
+dense_2 (Dense)             | (None, 100)              | 116500    
+dense_3 (Dense)             | (None, 50)               | 5050      
+dense_4 (Dense)             | (None, 10)               | 510       
+dense_5 (Dense)             | (None, 1)                | 11        
 
 #### 2. Attempts to reduce overfitting in the model
 
@@ -120,38 +105,26 @@ So I swithed to Nvidia model and started over. Nvidia model on RGB data able to 
 
 At the end of the process, the vehicle is able to drive autonomously around on both tracks without leaving the road.
 
-####2. Final Model Architecture
+#### 2. Final Model Architecture
 
 The final model architecture (model.py lines 87-108) 
 
-Layer (type)                 Output Shape              Param #   
-=================================================================
-lambda_1 (Lambda)            (None, 90, 320, 3)        0         
-_________________________________________________________________
-batch_normalization_1 (Batch (None, 90, 320, 3)        12        
-_________________________________________________________________
-conv2d_1 (Conv2D)            (None, 43, 158, 24)       1824      
-_________________________________________________________________
-conv2d_2 (Conv2D)            (None, 20, 77, 36)        21636     
-_________________________________________________________________
-conv2d_3 (Conv2D)            (None, 8, 37, 48)         43248     
-_________________________________________________________________
-conv2d_4 (Conv2D)            (None, 6, 35, 64)         27712     
-_________________________________________________________________
-conv2d_5 (Conv2D)            (None, 4, 33, 64)         36928     
-_________________________________________________________________
-flatten_1 (Flatten)          (None, 8448)              0         
-_________________________________________________________________
-dense_1 (Dense)              (None, 1164)              9834636   
-_________________________________________________________________
-dense_2 (Dense)              (None, 100)               116500    
-_________________________________________________________________
-dense_3 (Dense)              (None, 50)                5050      
-_________________________________________________________________
-dense_4 (Dense)              (None, 10)                510       
-_________________________________________________________________
-dense_5 (Dense)              (None, 1)                 11        
-=================================================================
+ Layer (type)               |  Output Shape            |  Param #   
+----------------------------|--------------------------|------------
+lambda_1 (Lambda)           | (None, 90, 320, 3)       | 0         
+batch_normalization_1 (Batch| (None, 90, 320, 3)       | 12        
+conv2d_1 (Conv2D)           | (None, 43, 158, 24)      | 1824      
+conv2d_2 (Conv2D)           | (None, 20, 77, 36)       | 21636     
+conv2d_3 (Conv2D)           | (None, 8, 37, 48)        | 43248     
+conv2d_4 (Conv2D)           | (None, 6, 35, 64)        | 27712     
+conv2d_5 (Conv2D)           | (None, 4, 33, 64)        | 36928     
+flatten_1 (Flatten)         | (None, 8448)             | 0         
+dense_1 (Dense)             | (None, 1164)             | 9834636   
+dense_2 (Dense)             | (None, 100)              | 116500    
+dense_3 (Dense)             | (None, 50)               | 5050      
+dense_4 (Dense)             | (None, 10)               | 510       
+dense_5 (Dense)             | (None, 1)                | 11        
+
 
 see https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/
 
@@ -164,5 +137,5 @@ After the collection process, I had ~47292 number of data points. I then preproc
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 23, I've used early stopping with {monitor='val-loss', min_delta=0.005, patience=5} parameters. 
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 23, early stopping with {monitor='val-loss', min_delta=0.005, patience=5} parameters helped to stop in time. 
 I used an adam optimizer so that manually training the learning rate wasn't necessary.
